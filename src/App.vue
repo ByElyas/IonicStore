@@ -56,7 +56,7 @@ export default defineComponent({
     const selectedIndex = ref(0);
     const appPages = [
       {
-        title: 'Inbox',
+        title: 'Cataleg Grid',
         url: '/folder/Inbox',
         iosIcon: mailOutline,
         mdIcon: mailSharp
