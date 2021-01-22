@@ -35,7 +35,6 @@ import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader,
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
-
 export default defineComponent({
   name: 'App',
   components: {
@@ -57,42 +56,18 @@ export default defineComponent({
     const appPages = [
       {
         title: 'Cataleg Grid',
-        url: '/folder/Inbox',
+        url: '/catalogue/grid',
         iosIcon: mailOutline,
         mdIcon: mailSharp
       },
       {
-        title: 'Outbox',
-        url: '/folder/Outbox',
+        title: 'Cataleg List',
+        url: '/catalogue/list',
         iosIcon: paperPlaneOutline,
         mdIcon: paperPlaneSharp
-      },
-      {
-        title: 'Favorites',
-        url: '/folder/Favorites',
-        iosIcon: heartOutline,
-        mdIcon: heartSharp
-      },
-      {
-        title: 'Archived',
-        url: '/folder/Archived',
-        iosIcon: archiveOutline,
-        mdIcon: archiveSharp
-      },
-      {
-        title: 'Trash',
-        url: '/folder/Trash',
-        iosIcon: trashOutline,
-        mdIcon: trashSharp
-      },
-      {
-        title: 'Spam',
-        url: '/folder/Spam',
-        iosIcon: warningOutline,
-        mdIcon: warningSharp
       }
     ];
-    const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+    const labels = ['Vendes', 'Estil'];
     
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
@@ -100,7 +75,7 @@ export default defineComponent({
     }
     
     const route = useRoute();
-    
+
     return { 
       selectedIndex,
       appPages, 
@@ -122,6 +97,7 @@ export default defineComponent({
       isSelected: (url: string) => url === route.path ? 'selected' : ''
     }
   }
+
 });
 </script>
 
