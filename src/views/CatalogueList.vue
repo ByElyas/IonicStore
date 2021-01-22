@@ -18,12 +18,15 @@
 
       <ion-list>
         <ion-item v-for="item in items" v-bind:key="item.id">
-          <ion-label>{{item.id}}</ion-label>
-          <ion-label>{{item.title}}</ion-label>
-<!--          <ion-label> Preu: {{item.price}} </ion-label>-->
-<!--          <ion-label> Descripció: {{item.description}} </ion-label>-->
-<!--          <ion-label> Categoria: {{item.category}} </ion-label>-->
-<!--          <ion-label> {{item.image}} </ion-label>-->
+          <ion-label class="ion-text-wrap" >
+            <ion-img style="width: 400px; height: 330px;"  :src="item.image"></ion-img>
+            <h1>{{ item.title }}</h1>
+            <h2>Price: <strong>{{ item.price }}€</strong></h2>
+            <p>{{ item.description }}</p>
+            <ion-chip color="secondary">
+              <ion-label color="dark">{{ item.category }}</ion-label>
+            </ion-chip>
+          </ion-label>
         </ion-item>
       </ion-list>
 
@@ -31,7 +34,7 @@
   </ion-page>
 </template>
 
-<script lang="ts">
+<script>
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import axios from 'axios';
 
