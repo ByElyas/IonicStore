@@ -19,7 +19,9 @@
       <ion-list>
         <ion-item v-for="item in items" v-bind:key="item.id">
           <ion-label class="ion-text-wrap" >
-            <ion-img style="width: 400px; height: 330px;"  :src="item.image"></ion-img>
+            <div style="height:300px;float:left">
+              <ion-img style="width: 400px; height: 330px;"  :src="item.image"></ion-img>
+            </div>
             <h1>{{ item.title }}</h1>
             <h2>Price: <strong>{{ item.price }}€</strong></h2>
             <p>{{ item.description }}</p>
@@ -89,4 +91,5 @@ export default {
 #container a {
   text-decoration: none;
 }
+
 </style>
