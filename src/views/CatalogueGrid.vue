@@ -6,6 +6,7 @@
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
         <ion-title>Catalogue grid</ion-title>
+        <ion-searchbar slot="end"/>
       </ion-toolbar>
     </ion-header>
 
@@ -16,24 +17,32 @@
         </ion-toolbar>
       </ion-header>
 
-      <div cards>
+      <div>
       <ion-grid>
         <div class="grid-full">
           <ion-row>
-            <ion-col v-for="item in items" v-bind:key="item.id" size-sm>
+            <ion-col v-for="item in items" v-bind:key="item.id" size-m display:flex>
               <ion-card>
-                <ion-img style="width: 400px; height: 330px;"  :src="item.image"></ion-img>
+                <div style="display: flex; align-items: center; justify-content: center">
+                  <ion-img style="width: 300px; height: 220px;"  :src="item.image"></ion-img>
+                </div>
                 <ion-card-header>
                   <ion-card-title>{{ item.title }}</ion-card-title>
-                  <ion-card-subtitle>Price: <strong>{{ item.price }}</strong></ion-card-subtitle>
+                  <ion-card-subtitle>
+                    <ion-badge color="secondary" >{{ item.price }}$</ion-badge>
+                  </ion-card-subtitle>
                 </ion-card-header>
 
                 <ion-card-content>
                   {{ item.description }}
                 </ion-card-content>
-                <ion-chip color="secondary">
-                  <ion-label color="dark">{{ item.category }}</ion-label>
-                </ion-chip>
+                <ion-row class="cardfooter">
+                  <ion-col>
+                    <ion-chip color="dark" >
+                      <ion-label color="dark">{{ item.category }}</ion-label>
+                    </ion-chip>
+                  </ion-col>
+                </ion-row>
               </ion-card>
             </ion-col>
           </ion-row>
@@ -46,7 +55,7 @@
 </template>
 
 <script>
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { loadingController, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import axios from 'axios';
 
 export default {
@@ -100,6 +109,39 @@ export default {
 #container a {
   text-decoration: none;
 }
+ion-col {
+  padding: 10px;
+}
 
+ion-card {
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*width: 100%;*/
+  height: 100%;
+  box-shadow: 0px 2px 5px 2px #ccc;
+}
+
+.cardfooter {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+ion-chip {
+  position: relative;
+  /*left: 190px;*/
+  /*right: 10px;*/
+}
+
+ion-card-content {
+  border-bottom: 20px solid transparent;
+}
+
+
+ion-searchbar {
+  width: 18%;
+  /*--box-shadow: none !important;*/
+  --box-shadow: inset 0 0 3px;
+}
 
 </style>

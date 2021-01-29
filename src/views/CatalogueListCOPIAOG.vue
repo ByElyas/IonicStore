@@ -6,31 +6,24 @@
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
         <ion-title>Catalogue list</ion-title>
-        <ion-searchbar slot="end"/>
       </ion-toolbar>
     </ion-header>
     
     <ion-content :fullscreen="true">
-
-
-
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">{{ $route.params.id }}</ion-title>
         </ion-toolbar>
       </ion-header>
 
-      
       <ion-list>
         <ion-item v-for="item in items" v-bind:key="item.id">
           <ion-label class="ion-text-wrap" >
-            <div style="height:300px;float:left;">
-              <ion-img style="width: 300px; height: 220px;"  :src="item.image"></ion-img>
+            <div style="height:300px;float:left">
+              <ion-img style="width: 400px; height: 330px;"  :src="item.image"></ion-img>
             </div>
-            <div text-wrap>
-              <h1>{{ item.title }}</h1>
-            </div>
-            <ion-badge color="secondary" >{{ item.price }}$</ion-badge>
+            <h1>{{ item.title }}</h1>
+            <h2>Price: <strong>{{ item.price }}€</strong></h2>
             <p>{{ item.description }}</p>
             <ion-chip color="secondary">
               <ion-label color="dark">{{ item.category }}</ion-label>
@@ -39,11 +32,16 @@
         </ion-item>
       </ion-list>
 
-      <ion-infinite-scroll threshold="5%" @ionInfinite="loadData">
+      <ion-infinite-scroll
+          @ionInfinite="loadData($event)"
+          threshold="100px"
+          id="infinite-scroll"
+          :disabled="isDisabled"
+      >
         <ion-infinite-scroll-content
-          loading-spinner="bubbles"
-          loading-text="Loading more products..."
-        ></ion-infinite-scroll-content>
+            loading-spinner="bubbles"
+            loading-text="Loading more data...">
+        </ion-infinite-scroll-content>
       </ion-infinite-scroll>
 
 
@@ -58,31 +56,16 @@ import { defineComponent, ref} from 'vue';
 
 export default {
   name: 'CatalogueList',
-  
   data() {
     return {
-      posts: null,
       items: [],
-      i: 0,
-      showLoader: true,
-      itemCount: 5
     }
   },
-  created() {
-    fetch('https://fakestoreapi.com/products')
-      .then(res => {
-        res.json().then(data => {
-          setTimeout(() => {
-            this.posts = data.reverse();
-            
-            for (; this.i < 5; this.i++) {
-              this.items.push(this.posts[this.i]);
-            }
-            
-            this.showLoader = false;
-          }, 3000)
+  mounted() {
+    axios.get('https://fakestoreapi.com/products')
+        .then(response => {
+          this.items = response.data
         })
-      })
   },
   components: {
     IonButtons,
@@ -95,20 +78,6 @@ export default {
     IonTitle,
     IonToolbar
   },
-  methods: {
-    loadData(event) {
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const vm = this;
-      const max = this.i +5 ;
-      setTimeout(function () {
-        for (; vm.i < max; vm.i++) {
-          const val = vm.posts[vm.i];
-          vm.items.push(val);
-        }
-        event.target.complete();
-      }, 1000)
-    }
-  }
 
 }
 
@@ -141,9 +110,4 @@ export default {
   text-decoration: none;
 }
 
-ion-searchbar {
-  width: 18%;
-  /*--box-shadow: none !important;*/
-  --box-shadow: inset 0 0 3px;
-}
 </style>

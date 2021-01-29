@@ -34,7 +34,7 @@
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { archiveOutline, archiveSharp, gridOutline, gridSharp, readerOutline, readerSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 export default defineComponent({
   name: 'App',
   components: {
@@ -57,17 +57,17 @@ export default defineComponent({
       {
         title: 'Cataleg Grid',
         url: '/catalogue/grid',
-        iosIcon: mailOutline,
-        mdIcon: mailSharp
+        iosIcon: gridOutline,
+        mdIcon: gridSharp
       },
       {
         title: 'Cataleg List',
         url: '/catalogue/list',
-        iosIcon: paperPlaneOutline,
-        mdIcon: paperPlaneSharp
+        iosIcon: readerOutline,
+        mdIcon: readerSharp
       }
     ];
-    const labels = ['Vendes', 'Estil'];
+    const labels = ['jewelery', 'men clothing', 'women clothing', 'electronics'];
     
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
