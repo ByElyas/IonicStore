@@ -22,9 +22,11 @@
       </ion-header>
 
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <router-link to="/catalogue/add">
         <ion-fab-button>
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
+        </router-link>
       </ion-fab>
 
 
