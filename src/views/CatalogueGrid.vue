@@ -30,7 +30,7 @@
         <div class="grid-full">
           <ion-row>
             <ion-col v-for="item in items" v-bind:key="item.id" size-m display:flex>
-              <ion-card>
+              <ion-card @click="showDescription">
                 <div style="display: flex; align-items: center; justify-content: center">
                   <ion-img style="width: 300px; height: 220px;"  :src="item.image"></ion-img>
                 </div>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { loadingController, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { loadingController, alertController, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import axios from 'axios';
 
 export default {
@@ -88,6 +88,18 @@ export default {
     IonPage,
     IonTitle,
     IonToolbar
+  },
+  methods: {
+    async showDescription() {
+      const alert = await alertController
+          .create({
+            cssClass: 'my-custom-class',
+            subHeader: 'Description',
+            message: 'Description of item',
+            buttons: ['OK'],
+          });
+      return alert.present();
+    }
   }
 }
 </script>
