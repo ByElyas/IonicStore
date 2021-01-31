@@ -17,6 +17,12 @@
         </ion-toolbar>
       </ion-header>
 
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
       <div>
       <ion-grid>
         <div class="grid-full">

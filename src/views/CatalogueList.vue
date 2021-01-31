@@ -14,13 +14,20 @@
 
 
 
+
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">{{ $route.params.id }}</ion-title>
         </ion-toolbar>
       </ion-header>
 
-      
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+
       <ion-list>
         <ion-item v-for="item in items" v-bind:key="item.id">
           <ion-label class="ion-text-wrap" >
