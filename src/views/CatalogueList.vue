@@ -10,10 +10,7 @@
       </ion-toolbar>
     </ion-header>
     
-    <ion-content :fullscreen="true">
-
-
-
+    <ion-content :fullscreen="true" onloadstart="presentLoading">
 
       <ion-header collapse="condense">
         <ion-toolbar>
@@ -61,13 +58,15 @@
 </template>
 
 <script>
-import { IonButtons, IonContent, IonHeader, IonMenuButton,  IonInfiniteScroll,  IonInfiniteScrollContent, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { loadingController, IonButtons, IonContent, IonHeader, IonMenuButton,  IonInfiniteScroll,  IonInfiniteScrollContent, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import axios from 'axios';
 import { defineComponent, ref} from 'vue';
 
 export default {
   name: 'CatalogueList',
-  
+  ionViewDidEnter() {
+    this.presentLoading()
+  },
   data() {
     return {
       posts: null,
@@ -77,6 +76,7 @@ export default {
       itemCount: 5
     }
   },
+  // CARREGAR DADES API + INFINITE SCROLL
   created() {
     fetch('https://fakestoreapi.com/products')
       .then(res => {
@@ -105,6 +105,7 @@ export default {
     IonToolbar
   },
   methods: {
+    //INFINITE SCROLLING
     loadData(event) {
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const vm = this;
@@ -116,9 +117,22 @@ export default {
         }
         event.target.complete();
       }, 1000)
-    }
-  }
+    },
+    // LOADING SPINNER
+    async presentLoading() {
+      const loading = await loadingController
+          .create({
+            cssClass: 'loadingSpinner',
+            message: 'Carregant productes...',
+            duration: 4000,
+          });
+      await loading.present();
 
+      setTimeout(function() {
+        loading.dismiss()
+      }, 4000);
+    },
+  }
 }
 
 
@@ -154,5 +168,12 @@ ion-searchbar {
   width: 18%;
   /*--box-shadow: none !important;*/
   --box-shadow: inset 0 0 3px;
+}
+
+.loadingSpinner {
+  --background: #222;
+  --spinner-color: #fff;
+
+  color: #fff;
 }
 </style>

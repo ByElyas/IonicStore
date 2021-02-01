@@ -99,7 +99,8 @@ export default {
             buttons: ['OK'],
           });
       return alert.present();
-    }
+    },
+
   }
 }
 </script>
@@ -163,5 +164,7 @@ ion-searchbar {
   /*--box-shadow: none !important;*/
   --box-shadow: inset 0 0 3px;
 }
+
+
 
 </style>
