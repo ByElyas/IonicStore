@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
-        <ion-title>Catalogue list</ion-title>
+        <ion-title slot="start">Catalogue list</ion-title>
         <ion-searchbar slot="end"/>
       </ion-toolbar>
     </ion-header>
@@ -170,6 +170,9 @@ ion-searchbar {
   --box-shadow: inset 0 0 3px;
 }
 
+ion-img {
+  padding-right: 20px;
+}
 .loadingSpinner {
   --background: #222;
   --spinner-color: #fff;

@@ -25,7 +25,7 @@
         </router-link>
       </ion-fab>
 
-      <div>
+      <div v-if="data">
       <ion-grid>
         <div class="grid-full">
           <ion-row>
@@ -58,13 +58,58 @@
       </ion-grid>
       </div>
 
+
+      <!-- Skeleton screen -->
+      <div v-if="!data">
+
+        <ion-grid>
+          <div class="grid-full">
+            <ion-row>
+              <ion-col v-for="item in items" v-bind:key="item.id" size-m display:flex>
+                <ion-card >
+                  <div style="display: flex; align-items: center; justify-content: center">
+                    <ion-img style="width: 300px; height: 220px;"></ion-img>
+                  </div>
+                  <ion-card-header>
+                    <ion-card-title>
+                      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                      <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </ion-card-title>
+                    <ion-card-subtitle>
+                      <ion-badge color="secondary" ></ion-badge>
+                    </ion-card-subtitle>
+                  </ion-card-header>
+
+                  <ion-card-content>
+                    <ion-skeleton-text animated ></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+                  </ion-card-content>
+                  <ion-row class="cardfooter">
+                    <ion-col>
+                      <ion-chip color="dark" style="width: 30%">
+                      </ion-chip>
+                    </ion-col>
+                  </ion-row>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-grid>
+
+      </div>
+
+
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { loadingController, alertController, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonSkeletonText, alertController, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import axios from 'axios';
+import { call } from 'ionicons/icons';
+import {ref} from "@vue/reactivity";
 
 export default {
   name: 'CatalogueList',
@@ -89,6 +134,17 @@ export default {
     IonTitle,
     IonToolbar
   },
+  // COSA DE SKELETON
+  setup() {
+    const data = ref();
+
+    setTimeout(() => {
+      data.value = {};
+    }, 3000);
+
+    return { data }
+  },
+
   methods: {
     async showDescription() {
       const alert = await alertController
@@ -166,5 +222,14 @@ ion-searchbar {
 }
 
 
+
+/* Custom Skeleton Line Height and Margin */
+.custom-skeleton ion-skeleton-text {
+  line-height: 13px;
+}
+
+.custom-skeleton ion-skeleton-text:last-child {
+  margin-bottom: 5px;
+}
 
 </style>
