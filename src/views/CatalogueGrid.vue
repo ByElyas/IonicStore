@@ -5,12 +5,23 @@
         <ion-buttons slot="start">
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
-        <ion-title>Catalogue grid</ion-title>
-        <ion-searchbar slot="end"/>
+
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col  size-lg="4" size-xs="12">
+              <ion-title>Catalogue Grid</ion-title>
+            </ion-col>
+            <ion-col size-lg="8"  size-xs="12">
+              <ion-searchbar placeholder="Search product"></ion-searchbar>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
+
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">{{ $route.params.id }}</ion-title>
@@ -20,7 +31,7 @@
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <router-link to="/catalogue/add">
         <ion-fab-button>
-          <ion-icon name="add"></ion-icon>
+          <ion-icon size="large" :md="add" />
         </ion-fab-button>
         </router-link>
       </ion-fab>
@@ -30,7 +41,7 @@
         <div class="grid-full">
           <ion-row>
             <ion-col v-for="item in items" v-bind:key="item.id" size-m display:flex>
-              <ion-card @click="showDescription">
+              <ion-card @click="showDescription(item)">
                 <div style="display: flex; align-items: center; justify-content: center">
                   <ion-img style="width: 300px; height: 220px;"  :src="item.image"></ion-img>
                 </div>
@@ -108,7 +119,7 @@
 <script>
 import { IonSkeletonText, alertController, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import axios from 'axios';
-import { call } from 'ionicons/icons';
+import { add } from 'ionicons/icons';
 import {ref} from "@vue/reactivity";
 
 export default {
@@ -142,17 +153,36 @@ export default {
       data.value = {};
     }, 3000);
 
-    return { data }
+    return { data, add }
   },
 
   methods: {
-    async showDescription() {
+    async showDescription($item) {
       const alert = await alertController
           .create({
-            cssClass: 'my-custom-class',
-            subHeader: 'Description',
-            message: 'Description of item',
-            buttons: ['OK'],
+            cssClass: 'cardDetail',
+            header: $item.title ,
+            subHeader: $item.price + "$",
+            message: $item.description,
+            buttons: [
+              {
+                text: 'Buy',
+                role: 'buy',
+                cssClass: 'buy-Button'
+              },
+              {
+                text: 'Add to list',
+                role: 'addToList',
+                cssClass: 'addToList-Button'
+              },
+
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'cancel-Button'
+              }
+            ],
+
           });
       return alert.present();
     },
@@ -162,6 +192,19 @@ export default {
 </script>
 
 <style scoped>
+
+
+
+/* Cosa de css de botóns descripció productes */
+.cardDetail {
+  --background: #e5e5e5;
+}
+
+/*.cardDetail .addToList-Button {*/
+/*  color: red;*/
+/*}*/
+
+
 #container {
   text-align: center;
   position: absolute;
@@ -190,6 +233,12 @@ ion-col {
   padding: 10px;
 }
 
+ion-searchbar {
+  margin: auto;
+  width: 300px !important;
+}
+
+
 ion-card {
   /*display: flex;*/
   /*flex-direction: column;*/
@@ -215,11 +264,6 @@ ion-card-content {
 }
 
 
-ion-searchbar {
-  width: 18%;
-  /*--box-shadow: none !important;*/
-  --box-shadow: inset 0 0 3px;
-}
 
 
 
@@ -231,5 +275,7 @@ ion-searchbar {
 .custom-skeleton ion-skeleton-text:last-child {
   margin-bottom: 5px;
 }
+
+
 
 </style>

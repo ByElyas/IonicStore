@@ -5,8 +5,18 @@
         <ion-buttons slot="start">
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
-        <ion-title slot="start">Catalogue list</ion-title>
-        <ion-searchbar slot="end"/>
+
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col  size-lg="4" size-xs="12">
+              <ion-title>Catalogue Grid</ion-title>
+            </ion-col>
+            <ion-col size-lg="8"  size-xs="12">
+              <ion-searchbar placeholder="Search product"></ion-searchbar>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
       </ion-toolbar>
     </ion-header>
     
@@ -123,7 +133,7 @@ export default {
       const loading = await loadingController
           .create({
             cssClass: 'loadingSpinner',
-            message: 'Carregant productes...',
+            message: 'Loading products...',
             duration: 4000,
           });
       await loading.present();
@@ -165,9 +175,8 @@ export default {
 }
 
 ion-searchbar {
-  width: 18%;
-  /*--box-shadow: none !important;*/
-  --box-shadow: inset 0 0 3px;
+  margin: auto;
+  width: 300px !important;
 }
 
 ion-img {
