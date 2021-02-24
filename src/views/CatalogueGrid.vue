@@ -121,6 +121,8 @@ import { IonSkeletonText, alertController, IonButtons, IonContent, IonHeader, Io
 import axios from 'axios';
 import { add } from 'ionicons/icons';
 import {ref} from "@vue/reactivity";
+import {modalController} from "@ionic/core";
+import ProductDescription from '../components/ProductDescription';
 
 export default {
   name: 'CatalogueList',
@@ -158,33 +160,18 @@ export default {
 
   methods: {
     async showDescription($item) {
-      const alert = await alertController
+     const modal = await modalController
           .create({
-            cssClass: 'cardDetail',
-            header: $item.title ,
-            subHeader: $item.price + "$",
-            message: $item.description,
-            buttons: [
-              {
-                text: 'Buy',
-                role: 'buy',
-                cssClass: 'buy-Button'
-              },
-              {
-                text: 'Add to list',
-                role: 'addToList',
-                cssClass: 'addToList-Button'
-              },
-
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                cssClass: 'cancel-Button'
-              }
-            ],
-
-          });
-      return alert.present();
+            component: ProductDescription,
+            cssClass: 'my-custom-class',
+            componentProps: {
+              title: $item.title,
+              image: $item.image,
+              description: $item.description,
+              price: $item.price,
+            },
+          })
+      return modal.present();
     },
 
   }
@@ -196,9 +183,9 @@ export default {
 
 
 /* Cosa de css de botóns descripció productes */
-.cardDetail {
-  --background: #e5e5e5;
-}
+/*.cardDetail {*/
+/*  --background: #e5e5e5;*/
+/*}*/
 
 /*.cardDetail .addToList-Button {*/
 /*  color: red;*/
